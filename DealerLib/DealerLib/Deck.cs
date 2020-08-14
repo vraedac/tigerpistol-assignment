@@ -42,6 +42,7 @@ namespace DealerLib
 		/// <summary>
 		/// Shuffles the deck, reordering the cards randomly each time.
 		/// </summary>
+		/// <returns>This instance</returns>
 		public Deck Shuffle()
 		{
 			_cards = _cards.OrderBy(x => _rng.Next()).ToList();
@@ -51,17 +52,10 @@ namespace DealerLib
 		/// <summary>
 		/// Deals the first card off of the top of the deck.
 		/// </summary>
-		public Card Pop()
+		public Card DealTopCard()
 		{
 			var result = _cards.First();
 			_cards.RemoveAt(0);
-			return result;
-		}
-
-		public Card[] Deal()
-		{
-			var result = _cards.ToArray();
-			_cards.Clear();
 			return result;
 		}
 
@@ -72,7 +66,7 @@ namespace DealerLib
 		/// <returns>A two dimensional array representing the hands of each player</returns>
 		public Card[][] Deal(int numberOfPlayers)
 		{
-			Card dealtCard = null;
+			Card? dealtCard = null;
 			var result = new List<List<Card>>();
 
 			do
@@ -82,8 +76,8 @@ namespace DealerLib
 					if (result.Count < (i + 1))
 						result.Add(new List<Card>());
 
-					dealtCard = Pop();
-					result.ElementAt(i).Add(dealtCard);
+					dealtCard = DealTopCard();
+					result.ElementAt(i).Add(dealtCard.Value);
 				}
 
 			} while (dealtCard != null);
