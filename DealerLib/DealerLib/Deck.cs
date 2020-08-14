@@ -5,6 +5,9 @@ using System.Text;
 
 namespace DealerLib
 {
+	/// <summary>
+	/// Represents a deck of cards, with functions for shuffling and dealing.
+	/// </summary>
 	public class Deck
 	{
 		private List<Card> _cards;
@@ -54,6 +57,9 @@ namespace DealerLib
 		/// </summary>
 		public Card DealTopCard()
 		{
+			if (_cards.Count == 0)
+				throw new InvalidOperationException("Cannot deal any more cards because the deck is empty.");
+
 			var result = _cards.First();
 			_cards.RemoveAt(0);
 			return result;
@@ -66,13 +72,20 @@ namespace DealerLib
 		/// <returns>A two dimensional array representing the hands of each player</returns>
 		public Card[][] Deal(int numberOfPlayers)
 		{
+			if (numberOfPlayers < 0 || numberOfPlayers > 52)
+				throw new ArgumentException("The number of players must be between 0 and 52");
+
 			Card? dealtCard = null;
 			var result = new List<List<Card>>();
 
 			do
 			{
+				dealtCard = null;
 				for (int i = 0; i < numberOfPlayers; i++)
 				{
+					if (_cards.Count == 0)
+						break;
+
 					if (result.Count < (i + 1))
 						result.Add(new List<Card>());
 

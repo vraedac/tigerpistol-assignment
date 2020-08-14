@@ -99,5 +99,84 @@ namespace DealerLib.Tests
 			sut.Cards.Should().HaveCount(51);
 			sut.Cards[0].Should().NotBe(expected);
 		}
+
+		[Test]
+		public void DealTopCard_DealsAllCardsWithoutErrors()
+		{
+			// Arrange
+			var sut = new Deck();
+
+			// Act/Assert
+			for (int i = 0; i < 52; i++)
+				sut.Invoking(x => x.DealTopCard()).Should().NotThrow();
+		}
+
+		[Test]
+		public void DealTopCard_ThrowsAfterLastCardDealt()
+		{
+			// Arrange
+			var sut = new Deck();
+
+			for (int i = 0; i < 52; i++)
+				sut.DealTopCard();
+
+			// Act/Assert
+			sut.Invoking(x => x.DealTopCard()).Should().Throw<InvalidOperationException>();
+		}
+
+		[Test]
+		public void DealAll_ArbitraryValidPlayerCount([Range(1, 52)] int playerCount)
+		{
+			// Arrange
+			var sut = new Deck();
+
+			// Act
+			Card[][] playerHands = sut.Deal(playerCount);
+
+			// Assert
+			playerHands.Should().HaveCount(playerCount);
+
+			var remainder = 52 % playerCount;
+			for (int i = 0; i < playerCount; i++)
+			{
+				if (remainder-- <= 0)
+					playerHands[i].Should().HaveCount(52 / playerCount);
+				else
+					playerHands[i].Should().HaveCount(52 / playerCount + 1);
+			}
+		}
+
+		[Test]
+		public void DealAll_ZeroPlayers_DealsNoCards()
+		{
+			// Arrange
+			var sut = new Deck();
+
+			// Act
+			Card[][] playerHands = sut.Deal(0);
+
+			// Assert
+			playerHands.Should().BeEmpty();
+		}
+
+		[Test]
+		public void DealAll_NegativePlayerCount_Throws()
+		{
+			// Arrange
+			var sut = new Deck();
+
+			// Act/Assert
+			sut.Invoking(x => x.Deal(-1)).Should().Throw<ArgumentException>();
+		}
+
+		[Test]
+		public void DealAll_TooManyPlayers_Throws()
+		{
+			// Arrange
+			var sut = new Deck();
+
+			// Act/Assert
+			sut.Invoking(x => x.Deal(53)).Should().Throw<ArgumentException>();
+		}
 	}
 }
