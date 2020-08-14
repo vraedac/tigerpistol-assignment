@@ -27,7 +27,7 @@ namespace DealerLib
 			{
 				var result = new List<Card>();
 
-				for (var val = 0; val < 13; val++)
+				for (var val = 1; val < 14; val++)
 				{
 					result.Add(new Card { Suit = Suit.Clubs, Value = val });
 					result.Add(new Card { Suit = Suit.Diamonds, Value = val });
