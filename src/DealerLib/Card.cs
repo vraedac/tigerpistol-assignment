@@ -7,16 +7,16 @@ namespace DealerLib
 	public struct Card
 	{
 		public Suit Suit { get; set; }
-		public int Value { get; set; } // 1(A), 2, 3, 4, 5, 6, 7, 8, 9, 10, 11(J), 12(Q), 13(K)
+		public Rank Rank { get; set; }
 
 		public override bool Equals(object obj)
 		{
 			if (obj is Card other)
-				return other.Suit == this.Suit && other.Value == this.Value;
+				return other.Suit == this.Suit && other.Rank == this.Rank;
 
 			return false;
 		}
 
-		public override int GetHashCode() => (Suit, Value).GetHashCode();
+		public override int GetHashCode() => (Suit, Rank).GetHashCode();
 	}
 }

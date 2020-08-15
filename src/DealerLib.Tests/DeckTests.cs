@@ -42,19 +42,19 @@ namespace DealerLib.Tests
 			var sut = new Deck();
 
 			// Assert
-			sut.Cards.Where(x => x.Value == 1).Should().HaveCount(4);
-			sut.Cards.Where(x => x.Value == 2).Should().HaveCount(4);
-			sut.Cards.Where(x => x.Value == 3).Should().HaveCount(4);
-			sut.Cards.Where(x => x.Value == 4).Should().HaveCount(4);
-			sut.Cards.Where(x => x.Value == 5).Should().HaveCount(4);
-			sut.Cards.Where(x => x.Value == 6).Should().HaveCount(4);
-			sut.Cards.Where(x => x.Value == 7).Should().HaveCount(4);
-			sut.Cards.Where(x => x.Value == 8).Should().HaveCount(4);
-			sut.Cards.Where(x => x.Value == 9).Should().HaveCount(4);
-			sut.Cards.Where(x => x.Value == 10).Should().HaveCount(4);
-			sut.Cards.Where(x => x.Value == 11).Should().HaveCount(4);
-			sut.Cards.Where(x => x.Value == 12).Should().HaveCount(4);
-			sut.Cards.Where(x => x.Value == 13).Should().HaveCount(4);
+			sut.Cards.Where(x => x.Rank == 1).Should().HaveCount(4);
+			sut.Cards.Where(x => x.Rank == 2).Should().HaveCount(4);
+			sut.Cards.Where(x => x.Rank == 3).Should().HaveCount(4);
+			sut.Cards.Where(x => x.Rank == 4).Should().HaveCount(4);
+			sut.Cards.Where(x => x.Rank == 5).Should().HaveCount(4);
+			sut.Cards.Where(x => x.Rank == 6).Should().HaveCount(4);
+			sut.Cards.Where(x => x.Rank == 7).Should().HaveCount(4);
+			sut.Cards.Where(x => x.Rank == 8).Should().HaveCount(4);
+			sut.Cards.Where(x => x.Rank == 9).Should().HaveCount(4);
+			sut.Cards.Where(x => x.Rank == 10).Should().HaveCount(4);
+			sut.Cards.Where(x => x.Rank == 11).Should().HaveCount(4);
+			sut.Cards.Where(x => x.Rank == 12).Should().HaveCount(4);
+			sut.Cards.Where(x => x.Rank == 13).Should().HaveCount(4);
 		}
 
 		[Test]
@@ -65,10 +65,10 @@ namespace DealerLib.Tests
 			var cards = sut.Cards;
 
 			// Act
-			cards[0].Value = 999;
+			cards[0].Suit = (Suit)(((int)cards[0].Suit + 1) % 4);
 
 			// Assert
-			sut.Cards[0].Value.Should().NotBe(999);
+			sut.Cards[0].Suit.Should().NotBe(cards[0].Suit);
 		}
 
 		[Test]

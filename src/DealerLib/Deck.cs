@@ -32,10 +32,10 @@ namespace DealerLib
 
 				for (var val = 1; val < 14; val++)
 				{
-					result.Add(new Card { Suit = Suit.Clubs, Value = val });
-					result.Add(new Card { Suit = Suit.Diamonds, Value = val });
-					result.Add(new Card { Suit = Suit.Hearts, Value = val });
-					result.Add(new Card { Suit = Suit.Spades, Value = val });
+					result.Add(new Card { Suit = Suit.Clubs, Rank = Rank.FromValue(val) });
+					result.Add(new Card { Suit = Suit.Diamonds, Rank = Rank.FromValue(val) });
+					result.Add(new Card { Suit = Suit.Hearts, Rank = Rank.FromValue(val) });
+					result.Add(new Card { Suit = Suit.Spades, Rank = Rank.FromValue(val) });
 				}
 
 				return result;
