@@ -43,7 +43,7 @@ namespace DealerLib
 		}
 
 		/// <summary>
-		/// Shuffles the deck, reordering the cards randomly each time.
+		/// Shuffles the deck in place, reordering the cards randomly each time.  Returns this instance.
 		/// </summary>
 		/// <returns>This instance</returns>
 		public Deck Shuffle()

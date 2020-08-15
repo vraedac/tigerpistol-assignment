@@ -144,6 +144,8 @@ namespace DealerLib.Tests
 				else
 					playerHands[i].Should().HaveCount(52 / playerCount + 1);
 			}
+
+			sut.Cards.Should().BeEmpty();
 		}
 
 		[Test]
@@ -177,6 +179,27 @@ namespace DealerLib.Tests
 
 			// Act/Assert
 			sut.Invoking(x => x.Deal(53)).Should().Throw<ArgumentException>();
+		}
+
+		[Test]
+		[Description("Tests the correctness of the Shuffle() method.  Note - Just as in real-world card shuffling, it is possible, though extremely unlikely, that this test will fail due to the shuffle coincidentally producing the same exact order of cards " +
+			"it started with.  In this scenario, running the test again should pass.")]
+		public void ShuffleTest()
+		{
+			// Arrange
+			var sut = new Deck();
+			var startingArrangement = sut.Cards;
+
+			// Act/Assert
+			sut.Shuffle();
+			sut.Cards.Should().BeEquivalentTo(startingArrangement);
+			sut.Cards.Should().NotEqual(startingArrangement);
+			var newArrangement = sut.Cards;
+			sut.Shuffle();
+			sut.Cards.Should().BeEquivalentTo(startingArrangement);
+			sut.Cards.Should().BeEquivalentTo(newArrangement);
+			sut.Cards.Should().NotEqual(startingArrangement);
+			sut.Cards.Should().NotEqual(newArrangement);
 		}
 	}
 }
