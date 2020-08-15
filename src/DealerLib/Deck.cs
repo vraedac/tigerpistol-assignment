@@ -8,6 +8,9 @@ namespace DealerLib
 	/// <summary>
 	/// Represents a deck of cards, with functions for shuffling and dealing.
 	/// </summary>
+	/// <remarks>
+	/// A deck contains 52 cards total, 13 of each suit, and does not include Jokers.  The set of cards in a deck can be manipulated only indirectly via the functions exposed by this class.
+	/// </remarks>
 	public class Deck
 	{
 		private List<Card> _cards;

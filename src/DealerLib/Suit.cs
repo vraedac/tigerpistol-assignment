@@ -4,6 +4,9 @@ using System.Text;
 
 namespace DealerLib
 {
+	/// <summary>
+	/// The suits that a card may have.
+	/// </summary>
 	public enum Suit
 	{
 		Hearts,

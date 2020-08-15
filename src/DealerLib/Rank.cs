@@ -17,34 +17,85 @@ namespace DealerLib
 		public string Name { get; private set; }
 		public int Value { get; private set; }
 
-		public static Rank Ace(bool high = false)
-		{
-			return new Rank { Name = "Ace", Value = high ? 14 : 1 };
-		}
+		/// <summary>
+		/// Factory to produce a card of rank "Ace".
+		/// </summary>
+		/// <param name="high">A bool indicating whether aces are high or low; default is low</param>
+		public static Rank Ace(bool high = false) => new Rank { Name = "Ace", Value = high ? 14 : 1 };
 
+		/// <summary>
+		/// Factory to produce a card of rank 2.
+		/// </summary>
 		public static Rank Two() => new Rank { Name = "Two", Value = 2 };
+
+		/// <summary>
+		/// Factory to produce a card of rank 3.
+		/// </summary>
 		public static Rank Three() => new Rank { Name = "Three", Value = 3 };
+
+		/// <summary>
+		/// Factory to produce a card of rank 4.
+		/// </summary>
 		public static Rank Four() => new Rank { Name = "Four", Value = 4 };
+
+		/// <summary>
+		/// Factory to produce a card of rank 5.
+		/// </summary>
 		public static Rank Five() => new Rank { Name = "Five", Value = 5 };
+
+		/// <summary>
+		/// Factory to produce a card of rank 6.
+		/// </summary>
 		public static Rank Six() => new Rank { Name = "Six", Value = 6 };
+
+		/// <summary>
+		/// Factory to produce a card of rank 7.
+		/// </summary>
 		public static Rank Seven() => new Rank { Name = "Seven", Value = 7 };
+
+		/// <summary>
+		/// Factory to produce a card of rank 8.
+		/// </summary>
 		public static Rank Eight() => new Rank { Name = "Eight", Value = 8 };
+
+		/// <summary>
+		/// Factory to produce a card of rank 9.
+		/// </summary>
 		public static Rank Nine() => new Rank { Name = "Nine", Value = 9 };
+
+		/// <summary>
+		/// Factory to produce a card of rank 10.
+		/// </summary>
 		public static Rank Ten() => new Rank { Name = "Ten", Value = 10 };
+
+		/// <summary>
+		/// Factory to produce a card of rank "Jack".
+		/// </summary>
 		public static Rank Jack() => new Rank { Name = "Jack", Value = 11 };
+
+		/// <summary>
+		/// Factory to produce a card of rank "Queen".
+		/// </summary>
 		public static Rank Queen() => new Rank { Name = "Queen", Value = 12 };
+
+		/// <summary>
+		/// Factory to produce a card of rank "King".
+		/// </summary>
 		public static Rank King() => new Rank { Name = "King", Value = 13 };
 
 		/// <summary>
 		/// Factory method to produce a Rank given its integer value.
 		/// </summary>
-		public static Rank FromValue(int value)
+		/// <param name="value">The value to be converted to Rank</param>
+		/// <param name="acesHigh">A bool indicating whether Aces are high or low; default is low</param>
+		public static Rank FromValue(int value, bool acesHigh = false)
 		{
 			switch (value)
 			{
 				case 1:
-					// TODO check if aces are high
-					return Ace();
+					if (!acesHigh)
+						return Ace(acesHigh);
+					throw new ArgumentException("Rank value of 1 is invalid when aces are high.");
 				case 2: return Two();
 				case 3: return Three();
 				case 4: return Four();
@@ -57,10 +108,16 @@ namespace DealerLib
 				case 11: return Jack();
 				case 12: return Queen();
 				case 13: return King();
+				case 14:
+					if (acesHigh)
+						return Ace(acesHigh);
+					throw new ArgumentException("Rank value of 14 is invalid when aces are low");
 				default:
 					throw new ArgumentException("Invalid rank value; value must be between 1 and 14.");
 			}
 		}
+
+		#region Operators
 
 		public static bool operator ==(Rank left, Rank right) => left.Equals(right);
 		public static bool operator !=(Rank left, Rank right) => !left.Equals(right);
@@ -70,14 +127,23 @@ namespace DealerLib
 		public static bool operator !=(int left, Rank right) => left != right.Value;
 		public static bool operator !=(Rank left, int right) => right != left;
 
+		#endregion Operators
+
+		#region Object overloads
+
 		public override bool Equals(object obj)
 		{
 			if (obj is Rank other)
-				return this.Value == other.Value;
+				return Value == other.Value;
+
+			if (obj is int val)
+				return Value == val;
 
 			return false;
 		}
 
 		public override int GetHashCode() => Value.GetHashCode();
+
+		#endregion Object overloads
 	}
 }
