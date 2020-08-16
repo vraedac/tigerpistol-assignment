@@ -12,8 +12,7 @@ var deck = new Deck();
 Card card = deck.DealTopCard();
 
 // create a deck, shuffle it and deal all cards across a given number of players
-int playerCount = 4;
 Card[][] cards = new Deck()
     .Shuffle()
-    .Deal(playerCount);
+    .Deal(numberOfPlayers: 4);
 ```
