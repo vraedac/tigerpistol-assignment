@@ -14,7 +14,7 @@ namespace DealerLib
 	public class Deck
 	{
 		private List<Card> _cards;
-		private Random _rng;
+		private readonly Random _rng;
 
 		/// <summary>
 		/// Gets the cards in the deck.
@@ -29,7 +29,7 @@ namespace DealerLib
 			_cards = generateFullDeck();
 			_rng = new Random();
 
-			List<Card> generateFullDeck()
+			static List<Card> generateFullDeck()
 			{
 				var result = new List<Card>();
 
